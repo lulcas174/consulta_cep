@@ -1,7 +1,6 @@
 import requests
 import json
 import re
-#https://autociencia.blogspot.com/2018/07/consultando-cep-via-web-service-com-python.html
 
 
 
@@ -18,7 +17,10 @@ def consulta(cep):
     return endereco
 
 def cep_valido(cep):
-    return True if re.search(r'^(\d{5}-\d{3}|\d{8})$', cep) else False
+    if len(cep) == 7 and 9:
+        print('Cep inválido')
+   
+    return cep
   
 
 
@@ -31,7 +33,8 @@ def main():
         if cep_valido(cep):
             endereco = consulta(cep)
             if not endereco.get('error'):
-                print('Cidade: %s - %s' % (endereco['localidade'], endereco['uf']) )
+                print('Cidade:', endereco['localidade'])
+                print('UF:', endereco['uf'])
                 print('Bairro:', endereco['bairro'])
                 print('Logradouro:', endereco['logradouro'])
                 print('CEP:', endereco['cep'])
